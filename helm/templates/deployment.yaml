@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: perfilnet-financeiro-app
+spec:
+  selector:
+    matchLabels:
+      app: perfilnet-financeiro-app
+  template:
+    metadata:
+      labels:
+        app: perfilnet-financeiro-app
+    spec:
+      containers:
+        - name: perfilnet-financeiro-app
+          image: alexholanda/perfilnet-financeiro-backend:{{ .Values.env.APP_VERSION }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8200
+          envFrom:
+            - secretRef:
+                name: db-financeiro-credentials
+          # env:
+          # - name: OTEL_SERVICE_NAME
+          #   value: "perfilnet-financeiro-backend"
+          # - name: OTEL_TRACES_EXPORTER
+          #   value: "jaeger"
+          # - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+          #   value: http://perfilnet-observabilidade-svc:14250
+          # - name: OTEL_METRICS_EXPORTER
+          #   value: none
+          # - name: OTEL_EXPORTER_JAEGER_TIMEOUT
+          #   value: "40000"
