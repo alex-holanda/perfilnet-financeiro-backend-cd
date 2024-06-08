@@ -20,6 +20,8 @@ spec:
           envFrom:
             - secretRef:
                 name: db-financeiro-credentials
+            - secretRef:
+                name: rabbitmq-credentials
           # env:
           # - name: OTEL_SERVICE_NAME
           #   value: "perfilnet-financeiro-backend"
